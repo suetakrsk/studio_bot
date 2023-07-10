@@ -7,7 +7,7 @@ from keyboards.reply import create_reply_keyboard
 from handlers.create_order import select_order_category
 
 load_dotenv()
-token = os.getenv('BOT_TOKEN')
+token = os.getenv('TOKEN')
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
@@ -20,7 +20,7 @@ def handle_start(message):
 def handle_help(message):
     help_handler(message, bot)
 
-@bot.message_handler(func=lambda message: message.text == "👤 Мой профиль")
+@bot.message_handler(func=lambda message: message.text == "🛠 Создать заказ")
 def handle_create_order(message):
     select_order_category(message, bot)
 
