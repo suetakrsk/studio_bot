@@ -1,10 +1,14 @@
 import telebot
-from handlers.start_handler import handle_start
+import os
+from dotenv import load_dotenv
+from handlers.start_handler import start_handler
 
-TOKEN = 'YOUR_BOT_TOKEN'
-bot = telebot.TeleBot(TOKEN)
 
-
-bot.add_message_handler(handle_start)
+load_dotenv()
+token = os.getenv('BOT_TOKEN')
+bot = telebot.TeleBot(token)
+@bot.message_handler(commands=['start'])
+def handle_start(message):
+    start_handler(message, bot)
 
 bot.polling()
