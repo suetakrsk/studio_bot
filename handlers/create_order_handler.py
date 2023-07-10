@@ -8,6 +8,10 @@ def select_order_category(message, bot):
     lab_button = types.InlineKeyboardButton('Лабораторная работа', callback_data='laborator')
     another_button = types.InlineKeyboardButton('Другое', callback_data='another')
 
-    select_category_keyboard.add(diplom_button, kurs_button, practika_button, lab_button, another_button)
+    select_category_keyboard.add(diplom_button)
+    select_category_keyboard.add(kurs_button)
+    select_category_keyboard.add(practika_button)
+    select_category_keyboard.add(lab_button)
+    select_category_keyboard.add(another_button)
 
     bot.send_message(message.chat.id, 'Выберите категорию работ:', reply_markup=select_category_keyboard)
