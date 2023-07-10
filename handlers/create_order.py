@@ -1,7 +1,8 @@
 from telebot import types
-product = {}
-def select_order_category(message, bot):
 
+product = {}
+
+def select_order_category(message, bot):
     select_category_keyboard = types.InlineKeyboardMarkup()
     categories = {
         'Дипломная работа': 'diplom',
@@ -16,8 +17,6 @@ def select_order_category(message, bot):
 
     bot.send_message(message.chat.id, 'Выберите категорию работы:', reply_markup=select_category_keyboard)
 
-
-
 def get_selected_category(call, bot):
     global product
     message = call.message
@@ -25,21 +24,19 @@ def get_selected_category(call, bot):
     select_order_type(message, bot)
 
 def select_order_type(message, bot):
-
     select_type_keyboard = types.InlineKeyboardMarkup()
     product_types = {
         'Сайт': 'site',
-        'Консольное приложение': 'consol',
-        'Dekstop-приложение': 'dekstop',
+        'Консольное приложение': 'console',
+        'Desktop-приложение': 'desktop',
         'Telegram-бот': 'telegram_bot',
         'Другое': 'another'
     }
-    for product_type, callback_data in  product_types.items():
+    for product_type, callback_data in product_types.items():
         button = types.InlineKeyboardButton(product_type, callback_data=callback_data)
         select_type_keyboard.add(button)
 
     bot.send_message(message.chat.id, 'Выберите тип работы:', reply_markup=select_type_keyboard)
-
 
 def get_selected_type(call, bot):
     global product
@@ -48,7 +45,6 @@ def get_selected_type(call, bot):
     select_order_deadline(message, bot)
 
 def select_order_deadline(message, bot):
-
     select_deadline_keyboard = types.InlineKeyboardMarkup()
     deadlines = {
         '<1 недели': '<1_week',
@@ -62,67 +58,67 @@ def select_order_deadline(message, bot):
         select_deadline_keyboard.add(button)
     bot.send_message(message.chat.id, 'Выберите конечный срок:', reply_markup=select_deadline_keyboard)
 
-
 def get_selected_deadline(call, bot):
     global product
     message = call.message
     product['deadline'] = call.data
-    total_cost()
-    select_order_deadline(message, bot)
-def total_cost():
+    total_cost = calculate_total_cost()
+    select_order_total(message, bot, total_cost)
+
+def calculate_total_cost():
     global product
     cost = 1
     if product['category'] == 'Дипломная работа':
         if product['type'] == 'Сайт':
             cost = 15000
-        if product['type'] == 'Dekstop-приложение':
+        elif product['type'] == 'Desktop-приложение':
             cost = 10000
-        if product['type'] == 'Консольное приложение':
+        elif product['type'] == 'Консольное приложение':
             cost = 8000
-        if product['type'] == 'Telegram-бот':
+        elif product['type'] == 'Telegram-бот':
             cost = 8000
-
-    if product['category'] == 'Курсовая работа':
+    elif product['category'] == 'Курсовая работа':
         if product['type'] == 'Сайт':
             cost = 4000
-        if product['type'] == 'Dekstop-приложение':
+        elif product['type'] == 'Desktop-приложение':
             cost = 5000
-        if product['type'] == 'Консольное приложение':
+        elif product['type'] == 'Консольное приложение':
             cost = 3000
-        if product['type'] == 'Telegram-бот':
+        elif product['type'] == 'Telegram-бот':
             cost = 3000
-    if product['category'] == 'Практика(УП/ПП)':
+    elif product['category'] == 'Практика(УП/ПП)':
         if product['type'] == 'Сайт':
             cost = 3000
-        if product['type'] == 'Dekstop-приложение':
+        elif product['type'] == 'Desktop-приложение':
             cost = 3500
-        if product['type'] == 'Консольное приложение':
+        elif product['type'] == 'Консольное приложение':
             cost = 3000
-        if product['type'] == 'Telegram-бот':
+        elif product['type'] == 'Telegram-бот':
             cost = 2500
-    if product['category'] == 'Лабораторная работа':
+    elif product['category'] == 'Лабораторная работа':
         if product['type'] == 'Сайт':
             cost = 500
-        if product['type'] == 'Dekstop-приложение':
+        elif product['type'] == 'Desktop-приложение':
             cost = 500
-        if product['type'] == 'Консольное приложение':
+        elif product['type'] == 'Консольное приложение':
             cost = 500
-        if product['type'] == 'Telegram-бот':
+        elif product['type'] == 'Telegram-бот':
             cost = 500
-    if  product['deadline'] == '<1_week' or ( product['deadline'] == '1-2_week' and product['category'] == 'Дипломная работа'):
+
+    if product['deadline'] == '<1_week' or (product['deadline'] == '1-2_week' and product['category'] == 'Дипломная работа'):
         cost *= 2
-    elif  product['deadline'] == '2_week-1_month':
+    elif product['deadline'] == '2_week-1_month':
         cost *= 0.7
+
     return cost
-def select_order_deadline(message, bot):
+
+def select_order_total(message, bot, total_cost):
     select_total_keyboard = types.InlineKeyboardMarkup()
-    chern_button = types.InlineKeyboardButton('<1 недели', callback_data='<1_week')
-    go_button = types.InlineKeyboardButton('1-2 недели', callback_data='1-2_week')
-    select_total_keyboard.add(chern_button, go_button)
-    text = f'Вид работы: {product["category"]}\nТип работы: {product["type"]}\nКонечный срок: {product["deadline"]}\nСтоимость: {total_cost()} рублей'
-
-
+    button = types.InlineKeyboardButton('Оформить заказ', callback_data='order')
+    select_total_keyboard.add(button)
+    text = f'Вид работы: {product["category"]}\nТип работы: {product["type"]}\nКонечный срок: {product["deadline"]}\nСтоимость: {total_cost} рублей'
     bot.send_message(message.chat.id, text, reply_markup=select_total_keyboard)
+
 
 '''
 Хендлеры

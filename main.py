@@ -11,7 +11,7 @@ from handlers.create_order import get_selected_deadline
 
 
 load_dotenv()
-token = os.getenv('TOKEN')
+token = os.getenv('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
