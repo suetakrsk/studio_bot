@@ -13,7 +13,6 @@ bot = telebot.TeleBot(token)
 def handle_start(message):
     main_keyboard = create_reply_keyboard()
     start_handler(message, bot, main_keyboard)
-    create_reply_keyboard()
 
 @bot.message_handler(commands=['help'])
 def handle_help(message):
