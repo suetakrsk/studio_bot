@@ -1,10 +1,14 @@
 import telebot
-from handlers.start_handler import handle_start
 
-TOKEN = 'YOUR_BOT_TOKEN'
-bot = telebot.TeleBot(TOKEN)
+from config import load_config
 
+config = load_config()
+bot = telebot.TeleBot(token = config.tg_bot.token, parse_mode = "HTML")
+def main():
+    bot.polling(none_stop = True)
 
-bot.add_message_handler(handle_start)
-
-bot.polling()
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("KeyboardInterrupt")
