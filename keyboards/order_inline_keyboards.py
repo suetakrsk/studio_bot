@@ -2,7 +2,7 @@ from telebot import types
 def select_order_category(message, bot):
     select_category_keyboard = types.InlineKeyboardMarkup()
     diplom_button = types.InlineKeyboardButton('Дипломная работа', callback_data='diplom')
-    kurs_button= types.InlineKeyboardButton('Курсовая работа', callback_data='kursovaya')
+    kurs_button = types.InlineKeyboardButton('Курсовая работа', callback_data='kursovaya')
     practika_button = types.InlineKeyboardButton('Практика(УП/ПП)', callback_data='practika')
     lab_button = types.InlineKeyboardButton('Лабораторная работа', callback_data='laborator')
     another_button = types.InlineKeyboardButton('Другое', callback_data='another')

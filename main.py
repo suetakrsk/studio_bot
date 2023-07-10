@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from handlers.start_handler import start_handler
 from handlers.help_handler import help_handler
 from keyboards.main_reply_keyboard import create_reply_keyboard
-
+from keyboards.order_inline_keyboards import select_order_category
 
 
 load_dotenv()
