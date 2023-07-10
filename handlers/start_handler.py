@@ -1,7 +1,5 @@
-
 from main import bot
 import telebot
-
 
 @telebot.message_handler(commands=['start'])
 def handle_start(message):
