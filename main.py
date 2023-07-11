@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 from handlers.start_handler import start_handler
 from handlers.help_handler import help_handler
 from keyboards.main_reply_keyboard import create_reply_keyboard
-from keyboards.order_inline_keyboards import select_order_category
+from keyboards.order_inline_keyboards import select_order_category, select_order_type
+
 
 
 load_dotenv()
@@ -24,4 +25,8 @@ def handle_help(message):
 def handle_create_order(message):
     select_order_category(message, bot)
 
-bot.polling() #777
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+    select_order_type(call.message, bot)
+
+bot.polling()
