@@ -31,3 +31,18 @@ def select_order_type(message, bot):
     select_order_type_keyboard.add(console_button)
 
     bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text='⏳ Выберите тип работы:', reply_markup=select_order_type_keyboard)
+
+def select_order_deadline(message, bot):
+    select_order_deadline_keyboard = types.InlineKeyboardMarkup()
+
+    min_1week_button = types.InlineKeyboardButton("Меньше 1 недели", callback_data='min1week')
+    odna_dve_week_button = types.InlineKeyboardButton("1-2 недели", callback_data='odna_dve_week')
+    two_week_month_button = types.InlineKeyboardButton("2 недели - 1 месяц", callback_data='two_week_month')
+    month_button = types.InlineKeyboardButton("Более 1 месяца", callback_data='month')
+
+    select_order_deadline_keyboard.add(min_1week_button)
+    select_order_deadline_keyboard.add(odna_dve_week_button)
+    select_order_deadline_keyboard.add(two_week_month_button)
+    select_order_deadline_keyboard.add(month_button)
+
+    bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text='⏳ Выберите сроки выполнения работы:', reply_markup=select_order_deadline_keyboard)
