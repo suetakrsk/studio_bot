@@ -1,6 +1,32 @@
 from telebot import types
+from unicodedata import category
+infO_product = {
+    'category': None,
+    'type': None,
+    'deadline': None
+}
+categoru_texts= {
+    'diplom': 'Дипломная работа',
+    'kursovaya': 'Курсовая работа',
+    'practika': 'Практика(УП/ПП)',
+    'laborator': 'Лабораторная работа',
+    'another': 'Другое'
+}
+type_texts= {
+    'site': 'Сайт',
+    'desktop': 'Desktop приложение',
+    'tgbot': 'Telegram бот',
+    'console': 'Консольное приложение',
 
-#selected_category = None
+}
+deadlinr_text = {
+    'min1week': 'Меньше 1 недели',
+    'odna_dve_week': '1-2 недели',
+    'two_week_month': '2 недели - 1 месяц',
+    'month': 'Более 1 месяца',
+}
+
+
 def select_order_category(message, bot):
     select_category_keyboard = types.InlineKeyboardMarkup()
 
@@ -46,3 +72,4 @@ def select_order_deadline(message, bot):
     select_order_deadline_keyboard.add(month_button)
 
     bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text='⏳ Выберите сроки выполнения работы:', reply_markup=select_order_deadline_keyboard)
+

@@ -4,8 +4,7 @@ from dotenv import load_dotenv
 from handlers.start_handler import start_handler
 from handlers.help_handler import help_handler
 from keyboards.main_reply_keyboard import create_reply_keyboard
-from keyboards.order_inline_keyboards import select_order_category, select_order_type, select_order_deadline
-
+from keyboards.order_inline_keyboards import select_order_category, select_order_type, select_order_deadline, infO_product, categoru_texts, type_texts, deadlinr_text
 
 
 load_dotenv()
@@ -33,5 +32,7 @@ def handle_select_type(call):
 def handle_select_deadline(call):
     select_order_deadline(call.message, bot)
 
+@bot.callback_query_handler(func=lambda call: call.data in ['min1week','odna_dve_week','two_week_month','month']
+def handle_create_totalmessage(call):
 
 bot.polling()
