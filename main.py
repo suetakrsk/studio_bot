@@ -8,7 +8,7 @@ from keyboards.order_inline_keyboards import select_order_category, select_order
 from handlers.сreate_order import choise_order_category,  choise_order_type, choise_order_deadline, last_craete_order_message
 
 load_dotenv()
-token = os.getenv('TOKEN')
+token = os.getenv('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])

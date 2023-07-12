@@ -55,7 +55,7 @@ def last_craete_order_message(call, bot):
     message = f"""
     Ваш заказ:\n№ заказа - #1\nКатегория работы - {info_product['Категория работы']}\nТип работы - {info_product['Тип работы']}\nСроки - {info_product['Сроки']}\nРасчетная стоимость - {info_product['Расчетная стоимость']}\n\n*- Окончательная стоимость - (добавляется после подтверждения заказа у администратора)
     """
-    bot.send_message(call.message.chat.id, text=message)
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=message)
 
 
 
