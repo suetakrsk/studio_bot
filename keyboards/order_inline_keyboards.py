@@ -1,31 +1,5 @@
 from telebot import types
 from unicodedata import category
-infO_product = {
-    'category': None,
-    'type': None,
-    'deadline': None
-}
-categoru_texts= {
-    'diplom': 'Дипломная работа',
-    'kursovaya': 'Курсовая работа',
-    'practika': 'Практика(УП/ПП)',
-    'laborator': 'Лабораторная работа',
-    'another': 'Другое'
-}
-type_texts= {
-    'site': 'Сайт',
-    'desktop': 'Desktop приложение',
-    'tgbot': 'Telegram бот',
-    'console': 'Консольное приложение',
-
-}
-deadlinr_text = {
-    'min1week': 'Меньше 1 недели',
-    'odna_dve_week': '1-2 недели',
-    'two_week_month': '2 недели - 1 месяц',
-    'month': 'Более 1 месяца',
-}
-
 
 def select_order_category(message, bot):
     select_category_keyboard = types.InlineKeyboardMarkup()
@@ -64,12 +38,14 @@ def select_order_deadline(message, bot):
     min_1week_button = types.InlineKeyboardButton("Меньше 1 недели", callback_data='min1week')
     odna_dve_week_button = types.InlineKeyboardButton("1-2 недели", callback_data='odna_dve_week')
     two_week_month_button = types.InlineKeyboardButton("2 недели - 1 месяц", callback_data='two_week_month')
-    month_button = types.InlineKeyboardButton("Более 1 месяца", callback_data='month')
+    month_button = types.InlineKeyboardButton("1-2 месяца", callback_data='month-twomonth')
+    two_month_more_button = types.InlineKeyboardButton("2 месяца и более" , callback_data='two-month_more')
 
     select_order_deadline_keyboard.add(min_1week_button)
     select_order_deadline_keyboard.add(odna_dve_week_button)
     select_order_deadline_keyboard.add(two_week_month_button)
     select_order_deadline_keyboard.add(month_button)
+    select_order_deadline_keyboard.add(two_month_more_button)
 
     bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text='⏳ Выберите сроки выполнения работы:', reply_markup=select_order_deadline_keyboard)
 
